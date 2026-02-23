@@ -1,6 +1,7 @@
 import datetime
 from django.db import models
 from django.utils import timezone
+from django.contrib import admin
 
 
 class Question(models.Model):
@@ -13,6 +14,12 @@ class Question(models.Model):
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ("question_text", "pub_date", "was_published_recently")
+    list_filter = ["pub_date"]
+    search_fields = ["question_text"]
+    list_ordering = ("pub_date",)
+
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
@@ -21,4 +28,11 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice_text
+
+class ChoiceAdmin(admin.ModelAdmin):
+    list_display = ("question", "choice_text", "votes")
+    list_filter = ["question"]
+    search_fields = ["choice_text"]
+    list_ordering = ("question",)
+
 
