@@ -14,6 +14,10 @@ class Question(models.Model):
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
+    def age(self):
+        current_year = timezone.now().year
+        return current_year - self.pub_date.year
+
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ("question_text", "pub_date", "was_published_recently")
     list_filter = ["pub_date"]
