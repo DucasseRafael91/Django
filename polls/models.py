@@ -17,16 +17,10 @@ class Question(models.Model):
     def get_choices(self):
         choices = self.choice_set.all()
         total_votes = sum(choice.votes for choice in choices)
-
         results = []
         for choice in choices:
-            if total_votes > 0:
-                proportion = (choice.votes / total_votes) * 100
-            else:
-                proportion = 0
-
+            proportion = (choice.votes / total_votes) * 100
             results.append((choice.choice_text, choice.votes, proportion))
-
         return results
 
     def get_max_choice(self):
