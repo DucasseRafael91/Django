@@ -14,6 +14,28 @@ class Question(models.Model):
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
+    def get_choices(self):
+        choices = self.choice_set.all()
+        total_votes = sum(choice.votes for choice in choices)
+
+        results = []
+        for choice in choices:
+            if total_votes > 0:
+                proportion = (choice.votes / total_votes) * 100
+            else:
+                proportion = 0
+
+            results.append((choice.choice_text, choice.votes, proportion))
+
+        return results
+
+    def get_max_choice(self):
+        choices = self.choice_set.all()
+        if not choices:
+            return None
+        max_choice = max(choices, key=lambda c: c.votes)
+        return max_choice.choice_text
+
     def age(self):
         current_year = timezone.now().year
         return current_year - self.pub_date.year
