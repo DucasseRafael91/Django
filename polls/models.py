@@ -19,7 +19,7 @@ class Question(models.Model):
         total_votes = sum(choice.votes for choice in choices)
         results = []
         for choice in choices:
-            proportion = (choice.votes / total_votes) * 100
+            proportion = round((choice.votes / total_votes) * 100, 2)
             results.append((choice.choice_text, choice.votes, proportion))
         return results
 
