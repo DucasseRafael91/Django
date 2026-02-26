@@ -1,0 +1,23 @@
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Titre par défaut{% endblock %}</title>
+</head>
+<body>
+
+    <header>
+{% block header %}
+<div style="width: 100%; height: 50px; background-color: blue;">
+    <!-- Contenu du header ici -->
+</div>
+{% endblock %}
+    </header>
+
+    <main>
+        {% block main %}
+        {% endblock %}
+    </main>
+
+</body>
+</html>
