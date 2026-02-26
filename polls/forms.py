@@ -2,7 +2,7 @@ from django import forms
 
 class QuestionForm(forms.Form):
     question_text = forms.CharField(label="Titre de la question", max_length=200)
-    pub_date = forms.DateField( label="Date de la publication", widget=forms.DateInput(attrs={'type': 'date'}))
+    pub_date = forms.DateField(label="Date de la publication", widget=forms.DateInput(attrs={'type': 'date'}))
     choice1 = forms.CharField(label="Choix 1", max_length=200, required=False)
     choice2 = forms.CharField(label="Choix 2", max_length=200, required=False)
     choice3 = forms.CharField(label="Choix 3", max_length=200, required=False)
