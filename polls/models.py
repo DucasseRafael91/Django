@@ -1,5 +1,6 @@
 import datetime
 from django.db import models
+from django.db.models import Sum
 from django.utils import timezone
 from django.contrib import admin
 
@@ -30,9 +31,20 @@ class Question(models.Model):
         max_choice = max(choices, key=lambda c: c.votes)
         return max_choice.choice_text
 
+
     def age(self):
         current_year = timezone.now().year
         return current_year - self.pub_date.year
+
+    @classmethod
+    def most_popular_question(cls):
+        questions_with_votes = cls.objects.annotate(total_votes=Sum('choice__votes'))
+        return questions_with_votes.order_by('-total_votes').first()
+
+    @classmethod
+    def less_popular_question(cls):
+        questions_with_votes = cls.objects.annotate(total_votes=Sum('choice__votes'))
+        return questions_with_votes.order_by('-total_votes').last()
 
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ("question_text", "pub_date", "was_published_recently")
