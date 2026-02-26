@@ -1,5 +1,11 @@
+{% extends "base.html" %}
+
+{% block main %}
+
 {% for text, votes, proportion in question.get_choices %}
     <li>
         {{ text }} — {{ votes }} vote{{ votes|pluralize }} {{ proportion }} %
     </li>
 {% endfor %}
+
+{% endblock %}

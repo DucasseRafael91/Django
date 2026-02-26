@@ -1,3 +1,7 @@
+{% extends "base.html" %}
+
+{% block main %}
+
 <p>Nombre de questions créées : {{ questions_count }}</p>
 <p>Nombre total de choix créés : {{ choices_count }}</p>
 <p>Nombre total de votes créés : {{ votes_count }}</p>
@@ -5,3 +9,5 @@
 <p>Question la plus populaire : {{ popular_question }}</p>
 <p>Question la moins populaire : {{ less_popular_question }}</p>
 <p>Derniere question Enregistré : {{ last_question }}</p>
+
+{% endblock %}
